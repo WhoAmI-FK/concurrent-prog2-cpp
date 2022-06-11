@@ -1,10 +1,11 @@
 #include <thread>
 #include <mutex>
-#include <boost/thread/barrier.hpp>
+//#include <boost/thread/barrier.hpp
+#include <boost/thread/latch.hpp>
 unsigned int bags_of_chips = 1;
 std::mutex pencil;
-boost::barrier fist_bump(10);
-
+//boost::barrier fist_bump(10);
+boost::latch fist_bump(5);
 void cpu_work(unsigned long workUnits)
 {
         unsigned long x = 0;
@@ -31,7 +32,8 @@ void olivia_shopper()
         bags_of_chips +=3;
         }
         printf("Olivia ADDED 3 bags of chips.\n");
-        fist_bump.wait();
+//      fist_bump.wait();
+        fist_bump.count_down();
 }
 
 int main()
